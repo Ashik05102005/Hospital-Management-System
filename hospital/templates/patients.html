@@ -1,0 +1,30 @@
+{% extends 'base.html' %} 
+{% block content %}
+{% load static %} 
+<img src="{% static 'images/patients_banner.png' %}" alt="jhgfd">
+<!-- {{patients}} -->
+<div class="max-w-full p-5">
+    <table class=" w-full  rounded-md">
+        <tr class="p-2 bg-blue-100   rounded-md">
+            <th class="py-2 rounded-tl-md">Patient ID</th>
+            <th>Patient Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Department</th>
+            <th>Appointment Date</th>
+            <th class=" rounded-tr-md">Status</th>
+        </tr>
+        {% for patient in patients %}
+        <tr>
+            <td class="px-5 py-2 border">{{patient.patient_id}}</td>
+            <td class="px-5 py-2 border">{{patient.name}}</td>
+            <td class="px-5 py-2 border">{{patient.age}}</td>
+            <td class="px-5 py-2 border">{{patient.gender}}</td>
+            <td class="px-5 py-2 border">{{patient.department}}</td>
+            <td class="px-5 py-2 border">{{patient.appointment_date}}</td>
+            <td class="px-5 py-2 border ">{{patient.status}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

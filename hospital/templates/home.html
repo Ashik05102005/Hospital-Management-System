@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+    <div>
+        <div class="relative">
+            <img src="{% static '/images/image.png' %}">
+            <div class="absolute top-0  px-10 h-full flex flex-col text-[#1E293B]  justify-center gap-2">
+                <h1 class="lg:text-5xl">Welcome to</h1>
+                <h1 class="lg:text-7xl"><span class="text-[#0F766E]">MediCare</span> Hospital</h1>
+                <h1 class="lg:text-2xl">Caring for Life , Every Day</h1>
+                <p>Providing quality healthcare with experienced doctors, <br>
+                    modern facilities, and compassionate patient care.</p>
+
+                <div class="flex mt-5 gap-3">
+                    <a 
+                    class="bg-[#0F766E] p-2 text-white rounded-md"
+                    href="{% url 'doctors' %}">View Docters</a>
+                    <a 
+                    class="bg-white text-[#0F766E] border rounded-md border-[#0F766E] p-2 "
+                    href="{% url 'patients' %}">View Patients {{visits}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
