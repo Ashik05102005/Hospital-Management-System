@@ -17,7 +17,10 @@
                     href="{% url 'doctors' %}">View Docters</a>
                     <a 
                     class="bg-white text-[#0F766E] border rounded-md border-[#0F766E] p-2 "
-                    href="{% url 'patients' %}">View Patients {{visits}}</a>
+                    href="{% url 'patients' %}">
+                        View Patients 
+                        <span class="text-[#0F766E] border border-[#0F766E] rounded-full px-2 py-1">{{visits}}</span>
+                    </a>
                 </div>
             </div>
         </div>

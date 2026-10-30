@@ -2,58 +2,90 @@ from django.shortcuts import render , redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate ,login ,logout
 from django.contrib.auth.decorators import login_required
+from .forms import RegisterForm
 
 # Create your views here.
 def register_view(request) :
+
+    form = RegisterForm()
+
     if request.method == "POST" :
-        print(request.POST)
-        username = request.POST.get("username")
-        email = request.POST.get("email")
-        password = request.POST.get("password")
+        form = RegisterForm(request.POST)
 
-        if User.objects.filter(username = username).exists():
-            return render(request , "register.html" , {"error" : "User already exists"})
+        if form.is_valid() :
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
 
-        User.objects.create_user(
-            username = username ,
-            email=email ,
-            password = password
-        )
+            if User.objects.filter(username = username ).exists() :
+                return render(request , 'register.html' , {"form" : form ,"error" : "username already exists"})
+            
+            if User.objects.filter(email = email ).exists() :
+                return render(request , 'register.html' , {"form" : form ,"error" : "email already exists"})
 
-        return redirect("home")
+            User.objects.create_user(
+                username= username ,
+                password=password ,
+                email=email ,
+            )
 
-    return render(request , "register.html")
+            return redirect("login")
 
-def login_view(request) :
-    if request.method == "POST" :
+    return render(request , 'register.html' , {"form" : form}) 
 
-        username = request.POST.get("username")
-        password = request.POST.get("password")
 
-        user = authenticate(
-            request ,
-            username = username ,
-            password = password
-        )
+    # if request.method == "POST" :
+    #     print(request.POST)
+    #     username = request.POST.get("username")
+    #     email = request.POST.get("email")
+    #     password = request.POST.get("password")
 
-        if user is not None :
-            login(request , user)
-            return redirect('home')
+    #     if User.objects.filter(username = username).exists():
+    #         return render(request , "register.html" , {"error" : "User already exists"})
 
-        else :
-            return render(request , "login.html" , {"error" : "Invalid Username or Password"})
+    #     User.objects.create_user(
+    #         username = username ,
+    #         email=email ,
+    #         password = password
+    #     )
 
-    return render(request,"login.html")
+    #     return redirect("home")
 
-def logout_view(request):
-    if request.method == 'POST':
+    # return render(request , "register.html")
 
-        logout(request)
+# def login_view(request) :
+#     if request.method == "POST" :
 
-        return redirect('login')
+#         username = request.POST.get("username")
+#         password = request.POST.get("password")
+
+#         user = authenticate(
+#             request ,
+#             username = username ,
+#             password = password
+#         )
+
+#         if user is not None :
+#             login(request , user)
+#             request.session["username"] = username
+#             return redirect('home')
+
+#         else :
+#             return render(request , "login.html" , {"error" : "Invalid Username or Password"})
+
+#     return render(request,"login.html")
+
+# def logout_view(request):
+#     if request.method == 'POST':
+
+#         logout(request)
+
+#         return redirect('login')
 
 def home(request) :
-    print("request",request.COOKIES)
+    # print("request",request.SESSIONS)
+    username = request.session.get("username" , "empty")
+    print(username)
     visits = int(request.COOKIES.get('visits' , 0))
     visits += 1
     response = render(request , "home.html" , {"visits" : visits})
