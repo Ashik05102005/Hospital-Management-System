@@ -10,17 +10,11 @@ class Docters(models.Model) :
     consultation_fee = models.IntegerField()
     image = models.URLField(max_length=500)
 
-
-
-    modified:    
-        modified:   hospital/__pycache__/models.cpython-313.pyc
-        modified:   hospital/__pycache__/urls.cpython-313.pyc
-        modified:   hospital/__pycache__/views.cpython-313.pyc
-        modified:   hospital/models.py
-        modified:   hospital/templates/home.html
-        modified:   hospital/templates/login.html
-        modified:   hospital/templates/register.html
-        modified:   hospital/templates/registration/login.html
-          hospital/views.py
-          hospital_management/__pycache__/settings.cpython-313.pyc
-          hospital_management/settings.py
+class Patients(models.Model) :
+    patient_id = models.CharField(max_length=10)
+    name = models.CharField(max_length=100)
+    age = models.IntegerField()
+    gender = models.CharField(max_length=20)
+    department = models.CharField(max_length=100)
+    appointment_date = models.DateField()
+    status = models.CharField(max_length=100)
