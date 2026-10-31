@@ -2,19 +2,33 @@ from django.db import models
 
 # Create your models here.
 class Docters(models.Model) :
-    name = models.CharField(max_length=100)
-    name = models.CharField(max_length=100)
+    id = models.BigAutoField( primary_key=True )
+    name = models.CharField(max_length=80)
+    department = models.CharField(max_length=100 )
     experience = models.IntegerField()
     qualifictaion = models.CharField(max_length=100)
     avilabilty = models.CharField(max_length=100)
     consultation_fee = models.IntegerField()
     image = models.URLField(max_length=500)
 
+STATUS_CHOICES = [
+    ("COMPLETED", "Completed"),
+    ("CONFIRMED", "Confirmed"),
+    ("PENDING", "Pending"),
+]
+GENDER_CHOICES = [
+    ("MALE", "male"),
+    ("FEMALE", "female")
+]
+
+
 class Patients(models.Model) :
-    patient_id = models.CharField(max_length=10)
+    patient_id = models.CharField(max_length=10 , primary_key=True)
     name = models.CharField(max_length=100)
     age = models.IntegerField()
-    gender = models.CharField(max_length=20)
+    gender = models.CharField(max_length=20, choices=GENDER_CHOICES)
     department = models.CharField(max_length=100)
     appointment_date = models.DateField()
-    status = models.CharField(max_length=100)
+    status = models.CharField(max_length=100 ,
+                              choices=STATUS_CHOICES ,
+                              default='PENDING')

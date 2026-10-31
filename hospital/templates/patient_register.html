@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    input{
+        border : 1px solid gray ;
+        padding :8px ;
+
+        display : block ;
+        width: 100%;
+        border-radius: 5px;
+    }
+    select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+select:focus {
+    border-color:#0F766E;
+}
+
+option {
+    padding: 10px;
+    background-color: #fff;
+    color: #0F766E;
+}
+</style>
+
+<div class="flex justify-center items-center ">
+    <form method="post" class="border rounded-md p-8 grid gap-3 m-10 lg:w-1/3 md:2/3 sm:w-full " >
+        <a
+        href="{% url 'patients' %}" 
+        class="bg-[#0F766E] text-white font-semibold px-3 py-1 rounded-lg w-fit">Back</a>
+        <h1 class="text-3xl font-medium text-[#0F766E] ">Patient Register</h1>
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button 
+        class="bg-[#0F766E] py-2 mt-4 rounded-md text-white font-semibold"
+        type="submit"
+        >Submit</button>
+    </form>
+</div>
+{% endblock %}

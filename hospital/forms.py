@@ -1,4 +1,5 @@
 from django import forms 
+from .models import Patients , Docters
 
 class RegisterForm(forms.Form) :
     username = forms.CharField(min_length=3 , max_length=30)
@@ -23,3 +24,16 @@ class RegisterForm(forms.Form) :
 
         if password != confirm_password :
             raise forms.ValidationError("passwords are not same") 
+
+
+class Patients_Form(forms.ModelForm) :
+
+    class Meta :
+        model = Patients
+        fields = "__all__"
+
+class Doctor_Form(forms.ModelForm) :
+
+    class Meta :
+        model = Docters 
+        fields = '__all__'
