@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Docters(models.Model) :
@@ -32,3 +33,12 @@ class Patients(models.Model) :
     status = models.CharField(max_length=100 ,
                               choices=STATUS_CHOICES ,
                               default='PENDING')
+
+
+class Profile(models.Model) :
+    user = models.OneToOneField(
+        User ,
+        on_delete=models.CASCADE
+    )
+    phone = models.CharField(max_length=15) 
+    address= models.CharField(max_length=100)

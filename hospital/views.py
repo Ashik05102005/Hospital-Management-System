@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 # from django.contrib.auth import authenticate ,login ,logout
 from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm
-from .forms import Patients_Form , Doctor_Form
-from .models import Patients , Docters
+from .forms import Patients_Form , Doctor_Form , ProfileForm
+from .models import Patients , Docters ,Profile
 
 # Create your views here.
 def register_view(request) :
@@ -65,7 +65,6 @@ def patients(request):
 
 def patient_register(request) :
 
-
     if request.method == "POST" :
 
         form = Patients_Form(request.POST)
@@ -98,7 +97,28 @@ def doctor_register(request) :
 
     return render(request , 'doctor_register.html' , {"form" : form})
 
+@login_required
+def profile(request):
+    if not Profile.objects.filter(user_id = request.user.id).exists():
+        if request.method == 'POST' :
+            form = ProfileForm(request.POST)
 
+            if form.is_valid() :
+                profile_data =form.save(commit=False)
+
+                profile_data.user = request.user
+
+                profile_data.save()
+
+                return redirect('home')
+        else :
+            form = ProfileForm()
+
+        return render(request , 'profile.html' , {"form" : form})
+    else:
+        data = Profile.objects.get(user_id=  request.user.id)
+        print(data)
+        return render(request , 'profile.html' , {"data" : data})
 
 
 

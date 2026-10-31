@@ -15,6 +15,7 @@
                 <a href="{% url 'home' %}">Home</a>
                 <a href="{% url 'doctors' %}">Docters</a>
                 <a href="{% url 'patients' %}">patients</a>
+                <a href="{% url 'profile' %}">Profile</a>
                 {% if user.is_authenticated %}
                     <form method="post" action="{% url 'logout' %}">
                         {% csrf_token %}
