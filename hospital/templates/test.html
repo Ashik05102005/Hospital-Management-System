@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- {{doctor}} -->
+<h1 class="p-5 text-5xl font-semibold text-[#0F766E]">{{doctor.name.upper}}</h1>
+<div class="grid grid-cols-4 gap-10 p-5">
+    {% for patient in doctor_patients %}
+        <div class="border-2 rounded-md p-8 text-xl font-semibold text-[#0F766E]">
+        <!-- {{patient}} -->
+        <p>Name : {{patient.name}}</p>
+        <p>Age : {{patient.age}}</p>
+        </div>
+    {% endfor %}
+ </div>
+
+{% endblock %}

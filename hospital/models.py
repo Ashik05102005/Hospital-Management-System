@@ -12,6 +12,9 @@ class Docters(models.Model) :
     consultation_fee = models.IntegerField()
     image = models.URLField(max_length=500)
 
+    def __str__(self):
+        return self.name
+
 STATUS_CHOICES = [
     ("COMPLETED", "Completed"),
     ("CONFIRMED", "Confirmed"),
@@ -29,6 +32,11 @@ class Patients(models.Model) :
     age = models.IntegerField()
     gender = models.CharField(max_length=20, choices=GENDER_CHOICES)
     department = models.CharField(max_length=100)
+    docter = models.ForeignKey(
+        Docters ,
+        on_delete=models.CASCADE ,
+        related_name='patients'
+    )
     appointment_date = models.DateField()
     status = models.CharField(max_length=100 ,
                               choices=STATUS_CHOICES ,

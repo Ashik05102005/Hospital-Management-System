@@ -40,6 +40,7 @@ def register_view(request) :
 
 
 def home(request) :
+    print(request.GET)
     # print("request",request.SESSIONS)
     username = request.session.get("username" , "empty")
     print(username)
@@ -48,6 +49,7 @@ def home(request) :
     response = render(request , "home.html" , {"visits" : visits})
     response.set_cookie('visits' , visits)
     return response
+
 
 @login_required
 def doctors(request) :
@@ -110,7 +112,7 @@ def profile(request):
 
                 profile_data.save()
 
-                return redirect('home')
+                # return redirect('home')
         else :
             form = ProfileForm()
 
@@ -118,7 +120,12 @@ def profile(request):
     else:
         data = Profile.objects.get(user_id=  request.user.id)
         print(data)
-        return render(request , 'profile.html' , {"data" : data})
+    return render(request , 'profile.html' , {"data" : data})
+
+def test(request) :
+    doctor = Docters.objects.get(id = 1)
+    doctor_patients = doctor.patients.all()
+    return render(request , 'test.html' ,{'doctor':doctor,"doctor_patients" : doctor_patients})
 
 
 

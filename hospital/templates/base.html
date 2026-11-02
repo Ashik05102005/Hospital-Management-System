@@ -12,10 +12,25 @@
                 <h3 class="text-sm text-gray-500">Caring for Life , Every Day</h3>
             </div>
             <nav class="flex gap-5">
-                <a href="{% url 'home' %}">Home</a>
-                <a href="{% url 'doctors' %}">Docters</a>
-                <a href="{% url 'patients' %}">patients</a>
-                <a href="{% url 'profile' %}">Profile</a>
+                <a href="{% url 'home' %}"
+                class="{% if request.resolver_match.url_name == 'home' %}text-[#0F766E] font-bold border-b-2 border-[#0F766E]{% endif %}">
+                    Home
+                </a>
+
+                <a href="{% url 'doctors' %}"
+                class="{% if request.resolver_match.url_name == 'doctors' %}text-[#0F766E] font-bold border-b-2 border-[#0F766E]{% endif %}">
+                    Doctors
+                </a>
+
+                <a href="{% url 'patients' %}"
+                class="{% if request.resolver_match.url_name == 'patients' %}text-[#0F766E] font-bold border-b-2 border-[#0F766E]{% endif %}">
+                    Patients
+                </a>
+
+                <a href="{% url 'profile' %}"
+                class="{% if request.resolver_match.url_name == 'profile' %}text-[#0F766E] font-bold border-b-2 border-[#0F766E]{% endif %}">
+                    Profile
+                </a>
                 {% if user.is_authenticated %}
                     <form method="post" action="{% url 'logout' %}">
                         {% csrf_token %}
