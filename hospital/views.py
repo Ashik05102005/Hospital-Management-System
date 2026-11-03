@@ -6,35 +6,48 @@ from .forms import RegisterForm
 from .forms import Patients_Form , Doctor_Form , ProfileForm
 from .models import Patients , Docters ,Profile
 
+
+
 # Create your views here.
 def register_view(request) :
 
-    form = RegisterForm()
-
-    if request.method == "POST" :
+    if request.method == 'POST' :
         form = RegisterForm(request.POST)
-
         if form.is_valid() :
-            print(form.cleaned_data)
-            username = form.cleaned_data['username']
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
+            form.save()
+            return redirect('home')
+    else :
+        form = RegisterForm()
 
-            if User.objects.filter(username = username ).exists() :
-                return render(request , 'register.html' , {"form" : form ,"error" : "username already exists"})
+    return render(request , 'register.html' , {'form' : form})
+        
+
+    # form = RegisterForm()
+
+    # if request.method == "POST" :
+    #     form = RegisterForm(request.POST)
+
+    #     if form.is_valid() :
+    #         print(form.cleaned_data)
+    #         username = form.cleaned_data['username']
+    #         email = form.cleaned_data['email']
+    #         password = form.cleaned_data['password']
+
+    #         if User.objects.filter(username = username ).exists() :
+    #             return render(request , 'register.html' , {"form" : form ,"error" : "username already exists"})
             
-            if User.objects.filter(email = email ).exists() :
-                return render(request , 'register.html' , {"form" : form ,"error" : "email already exists"})
+    #         if User.objects.filter(email = email ).exists() :
+    #             return render(request , 'register.html' , {"form" : form ,"error" : "email already exists"})
 
-            User.objects.create_user(
-                username= username ,
-                password=password ,
-                email=email ,
-            )
+    #         User.objects.create_user(
+    #             username= username ,
+    #             password=password ,
+    #             email=email ,
+    #         )
 
-            return redirect("login")
+    #         return redirect("login")
 
-    return render(request , 'register.html' , {"form" : form}) 
+    # return render(request , 'register.html' , {"form" : form}) 
 
 
 
