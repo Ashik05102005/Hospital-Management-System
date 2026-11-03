@@ -123,6 +123,8 @@ def profile(request):
     return render(request , 'profile.html' , {"data" : data})
 
 def test(request) :
+    if request.method == 'POST' :
+        print(request.POST)
     doctor = Docters.objects.get(id = 1)
     doctor_patients = doctor.patients.all()
     return render(request , 'test.html' ,{'doctor':doctor,"doctor_patients" : doctor_patients})
