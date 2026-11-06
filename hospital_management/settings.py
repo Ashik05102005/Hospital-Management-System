@@ -92,6 +92,8 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators
 
+# Certain conditions for valiadate the user password
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -125,6 +127,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# static file directory in the app hospital
 STATICFILES_DIRS = [BASE_DIR / 'hospital/static']
 
 
@@ -137,10 +140,9 @@ MAILERS = {
     },
 }
 
-
+# specify the url for login and logout for CBV
 
 LOGIN_URL = '/login/'
-
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
 
@@ -155,4 +157,6 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 
 # AUTH_USER_MODEL = 'hospital.CustomUser'
+
+# To set custom user model 
 AUTH_USER_MODEL = 'hospital.CustomUser'
