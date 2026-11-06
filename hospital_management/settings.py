@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# used to represent the root folder of django project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -20,6 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# Cryptographic key for sessions, passwords, CSRF protection, and tokens
 SECRET_KEY = 'django-insecure-r@hwl^_hna$18=+mfo2ajtqm4rtzy6hh_7@po5$k#=jhfs+75$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -30,15 +32,18 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+# List of all Django apps and third-party apps used in the project
 
-    'hospital',
+
+INSTALLED_APPS = [
+    'django.contrib.admin',# -> enables the admin dashboard to manage models.
+    'django.contrib.auth',# -> Adds authentication features: login, logout, users, passwords,etc
+    'django.contrib.contenttypes',# -> used to track all models
+    'django.contrib.sessions',# -> Enables Session Management
+    'django.contrib.messages',# -> Manage temporary msgs (like "Login successful")
+    'django.contrib.staticfiles',# -> Enable static files
+
+    'hospital',#third party app
 ]
 
 MIDDLEWARE = [
@@ -140,10 +145,14 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
 
 # Expire the session when the browser closes
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Session expires after 20 minutes of inactivity(commented)
 # SESSION_COOKIE_AGE = 1200
 
 # Save the session whenever it changes
 # SESSION_SAVE_EVERY_REQUEST = False
+
+
+# AUTH_USER_MODEL = 'hospital.CustomUser'
+AUTH_USER_MODEL = 'hospital.CustomUser'

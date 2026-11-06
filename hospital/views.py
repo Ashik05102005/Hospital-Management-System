@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm
 from .forms import Patients_Form , Doctor_Form , ProfileForm
 from .models import Patients , Docters ,Profile
-
+from django.db.models import F , Value , Sum , Avg
 
 
 # Create your views here.
@@ -20,47 +20,13 @@ def register_view(request) :
         form = RegisterForm()
 
     return render(request , 'register.html' , {'form' : form})
-        
-
-    # form = RegisterForm()
-
-    # if request.method == "POST" :
-    #     form = RegisterForm(request.POST)
-
-    #     if form.is_valid() :
-    #         print(form.cleaned_data)
-    #         username = form.cleaned_data['username']
-    #         email = form.cleaned_data['email']
-    #         password = form.cleaned_data['password']
-
-    #         if User.objects.filter(username = username ).exists() :
-    #             return render(request , 'register.html' , {"form" : form ,"error" : "username already exists"})
-            
-    #         if User.objects.filter(email = email ).exists() :
-    #             return render(request , 'register.html' , {"form" : form ,"error" : "email already exists"})
-
-    #         User.objects.create_user(
-    #             username= username ,
-    #             password=password ,
-    #             email=email ,
-    #         )
-
-    #         return redirect("login")
-
-    # return render(request , 'register.html' , {"form" : form}) 
-
-
 
 
 def home(request) :
     print(request.GET)
     # print("request",request.SESSIONS)
-    username = request.session.get("username" , "empty")
-    print(username)
-    visits = int(request.COOKIES.get('visits' , 0))
-    visits += 1
-    response = render(request , "home.html" , {"visits" : visits})
-    response.set_cookie('visits' , visits)
+    
+    response = render(request , "home.html" )
     return response
 
 
@@ -140,7 +106,24 @@ def test(request) :
         print(request.POST)
     doctor = Docters.objects.get(id = 1)
     doctor_patients = doctor.patients.all()
-    return render(request , 'test.html' ,{'doctor':doctor,"doctor_patients" : doctor_patients})
+
+    doctor_new = Docters.objects.annotate(
+        new_consultation_fee = F('consultation_fee') + Value(200)
+    )
+
+    total_consultation_fee = Docters.objects.aggregate(
+        total_consultation_fee = Sum('consultation_fee')
+    )
+
+    avarage_consultation_fee = Docters.objects.aggregate(
+        avarage_consultation_fee = Avg('consultation_fee')
+    )
+    print(total_consultation_fee)
+    print(avarage_consultation_fee)
+
+    return render(request , 'test.html' ,{'doctor':doctor,"doctor_patients" : doctor_patients , 
+                                          'doctor_new' : doctor_new  , 'total_consultation_fee' : total_consultation_fee ,
+                                          'avarage_consultation_fee' : avarage_consultation_fee})
 
 
 
