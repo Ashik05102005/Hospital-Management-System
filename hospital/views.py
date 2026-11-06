@@ -101,6 +101,8 @@ def profile(request):
         print(data)
     return render(request , 'profile.html' , {"data" : data})
 
+
+
 def test(request) :
     if request.method == 'POST' :
         print(request.POST)
