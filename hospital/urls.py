@@ -23,6 +23,7 @@ from . import views
 urlpatterns = [
     path('',views.home ,name="home") ,
     path('doctors/' , views.doctors , name="doctors"),
+    path('doctors_view/<int:id>' , views.doctor_view , name="doctors_view"),
     path('patients/' , views.patients , name="patients"),
     path('patients/register/' , views.patient_register , name='patient_register') , 
     path('doctors/register/' , views.doctor_register , name = 'doctor_register') ,

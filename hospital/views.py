@@ -38,6 +38,13 @@ def doctors(request) :
 
     return render(request , "doctors.html" , {"doctors" : doctors})
 
+
+def doctor_view(request , id) :
+    doctor_details = Docters.objects.get(id = id)
+    doctor_patients = doctor_details.patients.all()
+
+    return render(request , 'docter_view.html' ,{'doctor_patients' : doctor_patients , 'doctor_details' : doctor_details} )
+
 @login_required
 def patients(request):
     patients = Patients.objects.all()
