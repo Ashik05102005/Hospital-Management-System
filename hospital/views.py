@@ -40,6 +40,7 @@ def doctors(request) :
 
 
 def doctor_view(request , id) :
+    print(request.GET)
     doctor_details = Docters.objects.get(id = id)
     doctor_patients = doctor_details.patients.all()
 
