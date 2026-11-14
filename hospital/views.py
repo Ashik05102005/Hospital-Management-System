@@ -30,7 +30,7 @@ def home(request) :
     return response
 
 
-@login_required
+# @login_required
 def doctors(request) :
     doctors = Docters.objects.all()
     text_dict = Docters.objects.values()
